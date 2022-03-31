@@ -1,4 +1,5 @@
 #exclude python venv
+pyvenv.cfg
 /bin/
 /include/
 /lib/
