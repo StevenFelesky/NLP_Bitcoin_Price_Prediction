@@ -1,0 +1,5 @@
+#exclude python venv
+/bin/
+/include/
+/lib/
+/share/
