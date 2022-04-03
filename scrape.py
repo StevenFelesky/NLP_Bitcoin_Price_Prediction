@@ -6,21 +6,22 @@ Scrape historical data from financial websites
 """
 
 import re
+import csv
 import requests
 from datetime import date, timedelta
 
 # Get a list of dates from 2021-03-31 to 2022-03-31
 # to be used to iterate through archive.org urls
 dates = []
-start_date = date(2022, 3, 31)
-end_date = date(2022, 4, 1)
+start_date = date(2021, 3, 31)
+end_date = date(2022, 3, 31)
 delta = timedelta(days=1)
 while start_date <= end_date:
     dates.append(start_date.strftime("%Y%m%d"))
     start_date += delta
 
-# dictionary for headlines with k=date, v=list of headlines
-mw_headlines_dict = {}
+# array of array of headlines
+mw_headlines = []
 
 for date in dates:
     url = 'https://web.archive.org/web/' + date + '/https://www.marketwatch.com/'
@@ -31,7 +32,13 @@ for date in dates:
     headlines = [x.replace('-',' ') for x in headlines]
     headlines = list(set(headlines))
 
-    # add to dict
-    mw_headlines_dict[date] = headlines
+    # add to headlines array
+    headlines.insert(0, date)
+    mw_headlines.append(headlines)
+    
 
-print(mw_headlines_dict)
+print(mw_headlines)
+
+with open('mw_headlines.csv', 'w', encoding='UTF8', newline='') as f:
+    writer = csv.writer(f)
+    writer.writerows(mw_headlines)
