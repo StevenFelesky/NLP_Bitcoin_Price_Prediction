@@ -35,9 +35,8 @@ for date in dates:
     # add to headlines array
     headlines.insert(0, date)
     mw_headlines.append(headlines)
-    
 
-print(mw_headlines)
+    print(date)
 
 with open('mw_headlines.csv', 'w', encoding='UTF8', newline='') as f:
     writer = csv.writer(f)
