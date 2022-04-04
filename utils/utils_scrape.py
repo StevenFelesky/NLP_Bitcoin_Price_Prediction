@@ -38,6 +38,6 @@ for date in dates:
 
     print(date)
 
-with open('mw_headlines.csv', 'w', encoding='UTF8', newline='') as f:
+with open('../data/mw_headlines.csv', 'w', encoding='UTF8', newline='') as f:
     writer = csv.writer(f)
     writer.writerows(mw_headlines)

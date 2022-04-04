@@ -10,7 +10,7 @@ import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
 
 # read csv file in 
-file = open('mw_headlines.csv')
+file = open('../data/mw_headlines.csv')
 csvreader = csv.reader(file)
 data = []
 for row in csvreader:
@@ -31,7 +31,7 @@ for row in data:
             i += 1
     scores.append([row[0], score])
 
-with open('mw_headline_scores.csv', 'w', encoding='UTF8', newline='') as f:
+with open('../data/mw_headline_scores.csv', 'w', encoding='UTF8', newline='') as f:
     writer = csv.writer(f)
     writer.writerows(scores)
 

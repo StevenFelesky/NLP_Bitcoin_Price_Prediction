@@ -8,7 +8,7 @@ Determine if price of btc rose or fell based on open and close prices from yahoo
 import csv
 
 # read csv file in 
-file = open('BTC-USD.csv')
+file = open('../data/BTC-USD.csv')
 csvreader = csv.reader(file)
 data = []
 for row in csvreader:
@@ -24,7 +24,7 @@ for row in data:
     else:
         up_down.append(['down'])
 
-with open('btc_up_down.csv', 'w', encoding='UTF8', newline='') as f:
+with open('../data/btc_up_down.csv', 'w', encoding='UTF8', newline='') as f:
     writer = csv.writer(f)
     writer.writerows(up_down)
 
