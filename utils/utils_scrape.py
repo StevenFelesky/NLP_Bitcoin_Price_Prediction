@@ -22,22 +22,40 @@ while start_date <= end_date:
 
 # array of array of headlines
 mw_headlines = []
+bb_headlines = []
 
 for date in dates:
-    url = 'https://web.archive.org/web/' + date + '/https://www.marketwatch.com/'
-    response = requests.get(url)
+    url_mw = 'https://web.archive.org/web/' + date + '/https://www.marketwatch.com/'
+    response_mw = requests.get(url_mw)
 
     # find all story(headline) links with bitcoin or crypto in them, clean and remove duplicates
-    headlines = re.findall('/story/(.*(?:crypto|bitcoin).*)-.*mod=home', response.text)
-    headlines = [x.replace('-',' ') for x in headlines]
-    headlines = list(set(headlines))
+    headlines_mw = re.findall('/story/(.*(?:crypto|bitcoin).*)-.*mod=home', response_mw.text)
+    headlines_mw = [x.replace('-',' ') for x in headlines_mw]
+    headlines_mw = list(set(headlines_mw))
 
     # add to headlines array
-    headlines.insert(0, date)
-    mw_headlines.append(headlines)
+    headlines_mw.insert(0, date)
+    mw_headlines.append(headlines_mw)
+
+    ############### bloomberg
+    url_bb = 'https://web.archive.org/web/' + date + '/https://www.bloomberg.com/'
+    response_bb = requests.get(url_bb)
+
+    # find all story(headline) links with bitcoin or crypto in them, clean and remove duplicates
+    headlines_bb = re.findall('/news/articles/.*/(.*(?:crypto|bitcoin).*)\?', response_bb.text)
+    headlines_bb = [x.replace('-',' ') for x in headlines_bb]
+    headlines_bb = list(set(headlines_bb))
+
+    # add to headlines array
+    headlines_bb.insert(0, date)
+    bb_headlines.append(headlines_bb)
 
     print(date)
 
 with open('../data/mw_headlines.csv', 'w', encoding='UTF8', newline='') as f:
     writer = csv.writer(f)
     writer.writerows(mw_headlines)
+
+with open('../data/bb_headlines.csv', 'w', encoding='UTF8', newline='') as g:
+    writer1 = csv.writer(g)
+    writer1.writerows(bb_headlines)
